@@ -13,7 +13,7 @@ public class HealthController {
     @GetMapping("/health")
     public String health() {
         log.info("Health check endpoint called");
-        return "GoBasket Running v2";
+        return "GoBasket Running v3";
     }
 
     @GetMapping("/error-test")

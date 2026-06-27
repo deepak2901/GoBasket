@@ -1,5 +1,21 @@
-.idea
-.vscode
-target
-node_modules
+# IDE
+.idea/
+.vscode/
+
+# Build
+target/
+build/
+
+# Node
+node_modules/
+
+# Environment
 .env
+.env.*
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
