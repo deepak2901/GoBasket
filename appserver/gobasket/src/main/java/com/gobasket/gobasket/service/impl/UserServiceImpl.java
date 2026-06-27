@@ -1,5 +1,6 @@
 package com.gobasket.gobasket.service.impl;
 
+import com.gobasket.exception.ResourceAlreadyExistsException;
 import com.gobasket.gobasket.dto.UserRequest;
 import com.gobasket.gobasket.dto.UserResponse;
 import com.gobasket.gobasket.entity.User;
@@ -18,6 +19,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse createUser(UserRequest request) {
+
+        userRepository.findByPhone(request.getPhone()).ifPresent(existingUser -> {
+            throw new ResourceAlreadyExistsException("Phone number already exists");
+        });
 
         User user = User.builder()
                 .name(request.getName())
