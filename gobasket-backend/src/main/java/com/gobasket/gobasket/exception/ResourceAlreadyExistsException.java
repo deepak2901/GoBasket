@@ -1,4 +1,4 @@
-package com.gobasket.exception;
+package com.gobasket.gobasket.exception;
 
 public class ResourceAlreadyExistsException extends RuntimeException {
     

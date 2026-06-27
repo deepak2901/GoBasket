@@ -1,12 +1,14 @@
 package com.gobasket.gobasket.service.impl;
 
-import com.gobasket.exception.ResourceAlreadyExistsException;
+import com.gobasket.gobasket.exception.ResourceAlreadyExistsException;
 import com.gobasket.gobasket.dto.UserRequest;
 import com.gobasket.gobasket.dto.UserResponse;
 import com.gobasket.gobasket.entity.User;
 import com.gobasket.gobasket.repository.UserRepository;
 import com.gobasket.gobasket.service.UserService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,6 +18,7 @@ import java.time.LocalDateTime;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponse createUser(UserRequest request) {
@@ -28,6 +31,8 @@ public class UserServiceImpl implements UserService {
                 .name(request.getName())
                 .phone(request.getPhone())
                 .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role("USER")
                 .createdAt(LocalDateTime.now())
                 .build();
 
