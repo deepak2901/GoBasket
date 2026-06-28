@@ -1,10 +1,13 @@
 package com.gobasket.gobasket.service.impl;
 
 import com.gobasket.gobasket.exception.ResourceAlreadyExistsException;
+import com.gobasket.gobasket.dto.LoginRequest;
+import com.gobasket.gobasket.dto.LoginResponse;
 import com.gobasket.gobasket.dto.UserRequest;
 import com.gobasket.gobasket.dto.UserResponse;
 import com.gobasket.gobasket.entity.User;
 import com.gobasket.gobasket.repository.UserRepository;
+import com.gobasket.gobasket.security.jwt.JwtService;
 import com.gobasket.gobasket.service.UserService;
 import lombok.RequiredArgsConstructor;
 
@@ -12,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,12 +23,17 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     @Override
     public UserResponse createUser(UserRequest request) {
 
         userRepository.findByPhone(request.getPhone()).ifPresent(existingUser -> {
             throw new ResourceAlreadyExistsException("Phone number already exists");
+        });
+
+        userRepository.findByEmail(request.getEmail()).ifPresent(existingUser -> {
+            throw new ResourceAlreadyExistsException("Email already exists");
         });
 
         User user = User.builder()
@@ -45,5 +54,35 @@ public class UserServiceImpl implements UserService {
                 .email(savedUser.getEmail())
                 .createdAt(savedUser.getCreatedAt())
                 .build();
+    }
+
+    @Override
+    public List<UserResponse> getAllUsers() {
+        return userRepository.findAll().stream().map(user -> UserResponse.builder()
+            .id(user.getId())
+            .name(user.getName())
+            .phone(user.getPhone())
+            .email(user.getEmail())
+            .createdAt(user.getCreatedAt())
+            .build())
+            .toList();
+
+    }
+
+    @Override
+    public LoginResponse login(LoginRequest request) {
+        User user = userRepository.findByPhone(request.getPhone())
+                    .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+
+        boolean matches = passwordEncoder.matches(request.getPassword(), user.getPassword());
+        
+        if (!matches) {
+            throw new RuntimeException("Invalid credentials");
+        }
+        
+        String token =jwtService.generateToken(user.getPhone());
+        return LoginResponse.builder()
+            .token(token)
+            .build();
     }
 }
