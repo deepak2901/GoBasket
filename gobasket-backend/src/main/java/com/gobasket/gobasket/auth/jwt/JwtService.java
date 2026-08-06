@@ -33,13 +33,28 @@ public class JwtService {
     }
 
     public String extractPhone(String token) {
+        return extractAllClaims(token).getSubject();
+    }
 
-        Claims claims = Jwts.parser()
-                        .verifyWith(getSigningKey())
-                        .build()
-                        .parseSignedClaims(token)
-                        .getPayload();
+    public boolean isTokenValid(String token, String phone) {
+        return extractPhone(token).equals(phone) && !isTokenExpired(token);
+    }
 
-        return claims.getSubject();
+    private boolean isTokenExpired(String token) {
+        return extractAllClaims(token)
+                .getExpiration()
+                .before(new Date());
+    }
+
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+    public Date extractExpiration(String token) {
+        return extractAllClaims(token).getExpiration();
     }
 }
