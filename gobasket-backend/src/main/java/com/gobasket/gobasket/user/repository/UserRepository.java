@@ -1,7 +1,8 @@
-package com.gobasket.gobasket.repository;
+package com.gobasket.gobasket.user.repository;
 
-import com.gobasket.gobasket.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.gobasket.gobasket.user.entity.User;
 
 import java.util.Optional;
 import java.util.UUID;

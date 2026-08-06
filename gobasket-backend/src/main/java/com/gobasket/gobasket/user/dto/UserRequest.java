@@ -1,4 +1,4 @@
-package com.gobasket.gobasket.dto;
+package com.gobasket.gobasket.user.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,14 +1,15 @@
-package com.gobasket.gobasket.service.impl;
+package com.gobasket.gobasket.user.service.impl;
 
+import com.gobasket.gobasket.auth.dto.LoginRequest;
+import com.gobasket.gobasket.auth.dto.LoginResponse;
+import com.gobasket.gobasket.auth.jwt.JwtService;
 import com.gobasket.gobasket.exception.ResourceAlreadyExistsException;
-import com.gobasket.gobasket.dto.LoginRequest;
-import com.gobasket.gobasket.dto.LoginResponse;
-import com.gobasket.gobasket.dto.UserRequest;
-import com.gobasket.gobasket.dto.UserResponse;
-import com.gobasket.gobasket.entity.User;
-import com.gobasket.gobasket.repository.UserRepository;
-import com.gobasket.gobasket.security.jwt.JwtService;
-import com.gobasket.gobasket.service.UserService;
+import com.gobasket.gobasket.user.dto.UserRequest;
+import com.gobasket.gobasket.user.dto.UserResponse;
+import com.gobasket.gobasket.user.entity.User;
+import com.gobasket.gobasket.user.repository.UserRepository;
+import com.gobasket.gobasket.user.service.UserService;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.crypto.password.PasswordEncoder;

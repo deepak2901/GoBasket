@@ -1,10 +1,10 @@
-package com.gobasket.gobasket.controller;
+package com.gobasket.gobasket.user.controller;
 
-import com.gobasket.gobasket.dto.LoginRequest;
-import com.gobasket.gobasket.dto.LoginResponse;
-import com.gobasket.gobasket.dto.UserRequest;
-import com.gobasket.gobasket.dto.UserResponse;
-import com.gobasket.gobasket.service.UserService;
+import com.gobasket.gobasket.auth.dto.LoginRequest;
+import com.gobasket.gobasket.auth.dto.LoginResponse;
+import com.gobasket.gobasket.user.dto.UserRequest;
+import com.gobasket.gobasket.user.dto.UserResponse;
+import com.gobasket.gobasket.user.service.UserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

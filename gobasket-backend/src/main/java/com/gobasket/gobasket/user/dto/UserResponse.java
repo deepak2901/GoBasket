@@ -1,4 +1,4 @@
-package com.gobasket.gobasket.dto;
+package com.gobasket.gobasket.user.dto;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.gobasket.gobasket.security.jwt;
+package com.gobasket.gobasket.auth.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

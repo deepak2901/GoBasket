@@ -1,4 +1,4 @@
-package com.gobasket.gobasket.entity;
+package com.gobasket.gobasket.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
